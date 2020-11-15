@@ -1,9 +1,8 @@
 const jwt = require("jsonwebtoken");
 const config = require("../config/secret");
 
-function verification() {
+function verification(role) {
   return function (req, rest, next) {
-    var role = req.body.role;
     // return rest.status(401).send({ auth: false, message: role });
     // CEK AUTHORIZATION
     var tokenWithBearer = req.headers.authorization;

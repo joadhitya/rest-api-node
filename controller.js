@@ -89,8 +89,6 @@ exports.deleteData = function (req, res) {
   );
 };
 
-
-
 // SHOW Matakuliah GROUP
 exports.showGroupMatakuliah = function (req, res) {
   connection.query(

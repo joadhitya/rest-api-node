@@ -58,9 +58,13 @@ exports.login = function (req, res) {
     } else {
       if (rows.length == 1) {
         var token = jwt.sign({ rows }, config.secret, {
-          expiresIn: 1400,
+          expiresIn: 10000,
         });
         id_user = rows[0].id;
+        username = rows[0].username;
+        role = rows[0].role;
+
+        var expired = 10000;
         var data = {
           id_user: id_user,
           access_token: token,
@@ -80,6 +84,9 @@ exports.login = function (req, res) {
               message: "Login Success",
               token: token,
               currUser: data.id_user,
+              user: username,
+              role: role,
+              expires: expired,
             });
           }
         });
@@ -95,4 +102,14 @@ exports.login = function (req, res) {
 
 exports.secretPage = function (req, res) {
   response.oke("Secret Page for User Role 2", res);
+};
+
+exports.adminStudents = function (req, res) {
+  connection.query("SELECT * FROM mahasiswa", function (error, rows, fields) {
+    if (error) {
+      console.log(error);
+    } else {
+      response.oke(rows, res);
+    }
+  });
 };
